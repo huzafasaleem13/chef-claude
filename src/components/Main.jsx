@@ -6,16 +6,14 @@ function Main() {
     <li key={ingredients}>{ingredients}</li>
   ));
 
-  function handleSubmit(event) {
-    event.preventDefault();
-    const formData = new FormData(event.currentTarget);
+  function addIngredient(formData) {
     const newIngredient = formData.get("ingredient");
     setIngredients((prevIngredients) => [...prevIngredients, newIngredient]);
   }
   return (
     <main>
       <div className="form-container">
-        <form onSubmit={handleSubmit} className="add-ingredient-form">
+        <form action={addIngredient} className="add-ingredient-form">
           <input
             type="text"
             placeholder="e.g. oregano"
@@ -25,7 +23,19 @@ function Main() {
           <button>Add Ingredient</button>
         </form>
 
-        <ul>{ingredientsListItems}</ul>
+        <section>
+          <h2>Ingredients on hand:</h2>
+          <ul className="ingredients-lists" aria-live="polite">
+            {ingredientsListItems}
+          </ul>
+          <div className="get-recipe-container">
+            <div>
+              <h3>Ready for a recipe?</h3>
+              <p>generate a recipe from your list of ingredients.</p>
+            </div>
+            <button>Get a recipe</button>
+          </div>
+        </section>
       </div>
     </main>
   );
